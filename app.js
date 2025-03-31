@@ -86,7 +86,7 @@ passport.deserializeUser(User.deserializeUser());
 
 
 app.use((req,res,next) => {
-    console.log("Flash Messages in Middleware:", req.flash("success"), req.flash("error"));
+    // console.log("Flash Messages in Middleware:", req.flash("success"), req.flash("error"));
       res.locals.success = req.flash("success") || [];
       res.locals.error = req.flash("error") || [];
       res.locals.currUser = req.user || null;
