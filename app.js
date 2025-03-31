@@ -51,7 +51,7 @@ const store = mongoStore.create({
     touchAfter: 24 * 3600
 });
 
-store.on("error",()=>{
+store.on("error",(err)=>{
      console.log("Error in Mongo Session Store",err);
 });
 
@@ -90,6 +90,10 @@ app.use((req,res,next) => {
       res.locals.currUser = req.user;
       next();
 });
+// app.use((req, res, next) => {
+//     console.log("Flash Messages:", req.flash("success"), req.flash("error"));
+//     next();
+// });
 
 app.use("/listing",listingRouter);
 app.use("/listing/:id/reviews",reviewRouter);
