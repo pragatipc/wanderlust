@@ -46,7 +46,7 @@ async function main(){
 const store = mongoStore.create({
     mongoUrl:dburl,
     crypto:{
-        secret : process.env.SECRET,
+        secret :process.env.SECRET,
     },
     touchAfter: 24 * 3600
 });
@@ -84,16 +84,12 @@ passport.use(new localStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-app.use((req, res, next) => {
-    console.log("Flash Messages:", req.flash("success"), req.flash("error"));
-    next();
-});
-
 
 app.use((req,res,next) => {
-      res.locals.success = req.flash("success");
-      res.locals.error = req.flash("error");
-      res.locals.currUser = req.user;
+    console.log("Flash Messages in Middleware:", req.flash("success"), req.flash("error"));
+      res.locals.success = req.flash("success") || [];
+      res.locals.error = req.flash("error") || [];
+      res.locals.currUser = req.user || null;
       next();
 });
 
